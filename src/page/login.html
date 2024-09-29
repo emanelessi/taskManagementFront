@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+  <link href="/src/css/output.css" rel="stylesheet">
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+<body class="bg-secondary/30">
+<div class="min-h-screen flex flex-col items-center justify-center">
+  <div class="bg-white/60 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Login to Your Account</h2>
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label for="loginEmail" class="block text-sm font-medium text-black">Email</label>
+        <input type="email" id="loginEmail" class="mt-1 block w-full p-3 border border-quaternary/30 rounded-md" placeholder="Enter your email" required>
+      </div>
+      <div class="relative">
+        <label for="loginPassword" class="block text-sm font-medium text-black">Password</label>
+        <input type="password" id="loginPassword" class="mt-1 block w-full p-3 border border-quaternary/30 rounded-md" placeholder="Enter your password" required>
+        <button type="button" class="absolute inset-y-0 right-0 flex items-center px-3">
+          <!-- Use SVG icons for the eye/eye-off toggle here -->
+        </button>
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="flex items-center">
+          <input type="checkbox" class="form-checkbox text-tertiary">
+          <span class="ml-2 text-sm text-black">Remember me</span>
+        </label>
+        <a href="#" class="text-sm text-tertiary hover:underline">Forgot password?</a>
+      </div>
+      <button type="submit" class="w-full bg-tertiary text-white p-3 rounded-md hover:tertiary/80 transition-colors">Login</button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <p class="text-black">Don't have an account? <a href="register.html" id="showRegister" class="text-tertiary hover:underline">Sign up</a></p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

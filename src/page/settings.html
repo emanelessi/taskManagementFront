@@ -59,13 +59,26 @@
                         Dashboard
                     </a>
                 </li>
-                <li class="flex items-center gap-2 group relative" @click="activeTab = 'tasks'">
-                    <img src="../image/icon/tasks.svg" alt="tasks" class="w-6 h-6"
-                         :class="activeTab === 'tasks' ? 'text-white' : 'text-tertiary'"/>
-                    <a href="tasks.html" class="block py-2 px-4 rounded transition-colors   relative z-10"
-                       :class="activeTab === 'tasks' ? 'bg-tertiary text-white' : 'bg-white text-tertiary hover:bg-tertiary hover:text-white'">
-                        Tasks
-                    </a>
+                <li class="flex flex-col items-start gap-2 group relative" x-data="{ open: false }">
+                    <div class="flex items-center gap-2 cursor-pointer" @click="open = !open">
+                        <img src="../image/icon/tasks.svg" alt="tasks" class="w-6 h-6"
+                             :class="activeTab === 'tasks' ? 'text-white' : 'text-tertiary'" />
+                        <a href="tasks.html" class="block py-2 px-4 rounded transition-colors relative z-10"
+                           :class="activeTab === 'tasks' ? 'bg-tertiary text-white' : 'bg-white text-tertiary hover:bg-tertiary hover:text-white'">
+                            Tasks
+                        </a>
+                        <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="pl-10 mx-2 " x-show="open" x-transition>
+                        <div class="text-sm text-gray-500 my-3">
+                            <a href="categories.html" class="hover:text-tertiary font-medium transition-colors">Categories</a>
+                        </div>
+                        <div class="text-sm text-gray-500  my-3">
+                            <a href="status.html" class="hover:text-tertiary font-medium transition-colors">Status</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="flex items-center gap-2 group relative" @click="activeTab = 'projects'">
                     <img src="../image/icon/projects.svg" alt="tasks" class="w-6 h-6"
@@ -95,39 +108,85 @@
         </nav>
     </aside>
     <div class="flex-1 p-6 overflow-auto">
-        <h1 class="text-3xl font-bold my-6">profile</h1>
-    <div x-data="profile()">
-        <form @submit.prevent="saveProfile" class="bg-white p-5 rounded-lg shadow">
-            <div class="mb-4">
-                <label for="profileImage" class="block text-sm font-medium  text-black/80">profile Image</label>
-                <input type="file" id="profileImage" @change="uploadImage" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-            </div>
+        <h1 class="text-3xl font-bold my-6">Profile</h1>
+        <div x-data="profile()">
+            <form @submit.prevent="saveProfile" class="bg-white p-5 rounded-lg shadow">
+                <div class="mb-4">
+                    <label for="profileImage" class="block text-sm font-medium text-black/80">Profile Image</label>
+                    <input type="file" id="profileImage" @change="uploadImage" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
 
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium  text-black/80">name</label>
-                <input type="text" id="name" x-model="user.name" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-black/80">Name</label>
+                    <input type="text" id="name" x-model="user.name" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-black/80">Email</label>
+                    <input type="email" id="email" x-model="user.email" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="bio" class="block text-sm font-medium text-black/80">Bio</label>
+                    <textarea id="bio" x-model="user.bio" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
+                </div>
+
+                <div class="mb-4 relative">
+                    <label for="password" class="block text-sm font-medium text-black/80">Password</label>
+                    <input type="password" id="password" x-model="user.password" :type="showPassword ? 'text' : 'password'" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                    <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 flex items-center px-3">
+                        <img :src="showPassword ? '../image/icon/eye.svg' : '../image/icon/eye-off.svg'" alt="Toggle Password Visibility" class="w-4 h-4 mt-5">
+                    </button>
+                </div>
+                <div class="mb-4 relative">
+                    <label for="confirmPassword" class="block text-sm font-medium text-black/80">Confirm Password</label>
+                    <input type="password" id="confirmPassword" x-model="user.confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                    <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute inset-y-0 right-0 flex items-center px-3 ">
+                        <img :src="showConfirmPassword ? '../image/icon/eye.svg' : '../image/icon/eye-off.svg'" alt="Toggle Confirm Password Visibility" class="w-4 h-4 mt-5 ">
+                    </button>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-tertiary text-white px-4 py-2 rounded">Save Settings</button>
+                </div>
+            </form>
+            <div class="mt-5" x-show="saved">
+                <p class="text-green-600">تم حفظ التعديلات بنجاح!</p>
             </div>
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium  text-black/80">email</label>
-                <input type="email" id="email" x-model="user.email" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-            </div>
-            <div class="mb-4">
-                <label for="bio" class="block text-sm font-medium  text-black/80">bio</label>
-                <textarea id="bio" x-model="user.bio" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
-            </div>
-            <div class="flex justify-end">
-                <button type="submit" class="bg-tertiary text-white px-4 py-2 rounded">save setting</button>
-            </div>
-        </form>
-        <div class="mt-5" x-show="saved">
-            <p class="text-green-600">تم حفظ التعديلات بنجاح!</p>
         </div>
-    </div>
+
 
 
     </div>
 </div>
 <script src="../js/script.js"></script>
+<script>
+    function profile() {
+        return {
+            user: {
+                name: '',
+                email: '',
+                bio: '',
+                password: '',
+                confirmPassword: ''
+            },
+            saved: false,
+            showPassword: false,
+            showConfirmPassword: false,
+            saveProfile() {
+                if (this.user.password !== this.user.confirmPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                }
 
+                // باقي الكود لحفظ البيانات
+                this.saved = true; // مثال لتأكيد حفظ البيانات
+            },
+            uploadImage(event) {
+                // وظيفة تحميل الصورة
+            }
+        }
+    }
+</script>
 </body>
 </html>
