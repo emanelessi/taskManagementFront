@@ -1,4 +1,5 @@
 
+
 function chartComponent() {
     return {
         init() {
@@ -127,18 +128,20 @@ function taskBoard() {
         }
     };
 }
-// function addTask() {
-//     const taskName = document.getElementById('taskName').value;
-//     const dueDate = document.getElementById('dueDate').value;
-//     const newTask = {
-//         id: Date.now(),
-//         name: taskName,
-//         dueDate: dueDate
-//     };
-//     this.tasks.todo.push(newTask);
-//     document.getElementById('taskName').value = '';
-//     document.getElementById('dueDate').value = '';
-// }
+function addTask() {
+    const taskName = document.getElementById('taskName').value;
+    const dueDate = document.getElementById('dueDate').value;
+    const newTask = {
+        id: Date.now(),
+        name: taskName,
+        dueDate: dueDate
+    };
+    this.tasks.todo.push(newTask);
+    document.getElementById('taskName').value = '';
+    document.getElementById('dueDate').value = '';
+}
+
+
 // function profile() {
 //     return {
 //         user: {
@@ -162,6 +165,8 @@ function taskBoard() {
 //     // يمكنك استخدام FormData لإرسال الصورة إلى الخادم
 //     console.log(file);
 // }
+
+
 
 
 
